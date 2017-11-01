@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="output"></div>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+var url = "sample/news_0499496.json";
+
+xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var myArr = JSON.parse(this.responseText);
+        readJSON(myArr);
+    }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function readJSON(arr) {
+    var out = "";
+	var wordCount = arr.text.length;
+    out += 'ID: ' + arr.uuid + '<br>' + 
+    arr.text + '<br>';
+    document.getElementById("output").innerHTML = out;
+}
+</script>
+
+</body>
+</html>
