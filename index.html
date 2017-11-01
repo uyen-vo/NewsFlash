@@ -5,25 +5,54 @@
 <div id="output"></div>
 
 <script>
-var xmlhttp = new XMLHttpRequest();
-var url = "sample/news_0499496.json";
+var dictionary = {};
 
-xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        var myArr = JSON.parse(this.responseText);
-        readJSON(myArr);
-    }
-};
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
 
-function readJSON(arr) {
-    var out = "";
-	var wordCount = arr.text.length;
-    out += 'ID: ' + arr.uuid + '<br>' + 
-    arr.text + '<br>';
-    document.getElementById("output").innerHTML = out;
+for(var i = 499495; i<499531; i++) {
+	var url = 'sample/news_0' + i + '.json';
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var obj = JSON.parse(this.responseText);
+			addObj(obj);
+		}
+	};
+
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
 }
+
+function addObj(arr) {
+    var out = "";
+	var charCount = arr.text.length;
+	var docObj = {};
+	var wordCounts = {};
+	var wordArray = arr.text.split(" ");
+	var maxWord = '';
+	var maxCount = 0;
+	
+	for(var i = 0; i < wordArray.length; i++) {
+		var word = wordArray[i];
+		wordCounts[word] = wordCounts[word] ? wordCounts[word] + 1 : 1;
+		
+		if (wordCounts[word] > maxCount) {
+			maxWord = word;
+			maxCount = wordCounts[word];
+		}
+	}
+	
+	docObj['word_counts'] = wordCounts;
+	docObj['char_count'] = charCount;
+	docObj['max_word'] = maxWord;
+	docObj['max_count'] = maxCount;
+	
+    out += '<b>ID:</b> ' + arr.uuid + '<br><b>Character count:</b> ' + charCount + '<br>'
+		+ '<b>Most frequent word:</b>' + maxWord + '/' + maxCount + '<br><br>';
+	
+	dictionary[arr.uuid] = docObj;
+    document.getElementById("output").innerHTML += out;
+}
+
 </script>
 
 </body>
