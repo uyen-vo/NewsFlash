@@ -5,34 +5,59 @@
 <div id="output"></div>
 
 <script>
+var documents = {};
 var dictionary = {};
+/* Tells us when all calls have been completed
+   Also can be thought of as number of documents */
+var numCalls = 36;
+initialize();
 
+/* Make the HTTP method calls */
+function initialize() {
+	for(var i = 499495; i<499531; i++) {
+		var url = 'sample/news_0' + i + '.json';
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var obj = JSON.parse(this.responseText);
+				addDocObj(obj);
+				numCalls--;
+				
+				if (numCalls == 0) {
+					outputStats();
+				}
+			}
+		};
 
-for(var i = 499495; i<499531; i++) {
-	var url = 'sample/news_0' + i + '.json';
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var obj = JSON.parse(this.responseText);
-			addObj(obj);
-		}
-	};
-
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	}
 }
 
-function addObj(arr) {
+/* Constructs a single document object and adds it to the documents */
+function addDocObj(obj) {
     var out = "";
-	var charCount = arr.text.length;
+	var titleC
 	var docObj = {};
 	var wordCounts = {};
-	var wordArray = arr.text.split(" ");
+	var wordArray = obj.text.split(" ");
 	var maxWord = '';
 	var maxCount = 0;
 	
 	for(var i = 0; i < wordArray.length; i++) {
 		var word = wordArray[i];
+		
+		// Nothing if flag is 1 (it has already been counted)
+		if (dictionary[word] && dictionary[word].flag == 0) {
+			dictionary[word].doc_freq += 1;
+			dictionary[word].flag = 1;
+		} else {
+			var dictObj = new Object();
+			dictObj.doc_freq = 1;
+			dictObj.flag = 1;
+			dictionary[word] = dictObj;
+		}
+		
 		wordCounts[word] = wordCounts[word] ? wordCounts[word] + 1 : 1;
 		
 		if (wordCounts[word] > maxCount) {
@@ -42,17 +67,42 @@ function addObj(arr) {
 	}
 	
 	docObj['word_counts'] = wordCounts;
-	docObj['char_count'] = charCount;
+	// Handle: establish a minimum word count (spam filter)
+	docObj['char_count'] = obj.text.length;
+	// Handle: title_count == 0
+	docObj['title_count'] = obj.title.length; 
 	docObj['max_word'] = maxWord;
 	docObj['max_count'] = maxCount;
 	
-    out += '<b>ID:</b> ' + arr.uuid + '<br><b>Character count:</b> ' + charCount + '<br>'
-		+ '<b>Most frequent word:</b>' + maxWord + '/' + maxCount + '<br><br>';
+    /*out += '<b>ID:</b> ' + obj.uuid + '<br><b>Character count:</b> ' + docObj['char_count'] + '<br>'
+		+ '<b>Most frequent word:</b>' + maxWord + '/' + maxCount + '<br><br>';*/
 	
-	dictionary[arr.uuid] = docObj;
-    document.getElementById("output").innerHTML += out;
+	documents[obj.uuid] = docObj;
 }
 
+/* Checkpoint 1: output document statistics */
+function outputStats(){
+	var avgDocLength, avgTitleLength = 0;
+	var topFive = [];
+	
+	var totalDocLength = 0;
+	var totalTitleLength = 0;
+	var numDocs = Object.keys(documents).length;
+	
+	for (var key in documents) {
+		if (documents.hasOwnProperty(key)) {           
+			totalDocLength += documents[key].char_count;
+			console.log(key, documents[key]);
+			totalTitleLength += documents[key].title_count;
+		}
+	}
+	
+	avgDocLength = totalDocLength / Object.keys(documents).length;;
+	avgTitleLength = totalTitleLength / numDocs;
+	
+	//document.getElementById("output").innerHTML += JSON.stringify(documents);
+	document.getElementById("output").innerHTML += avgDocLength + ' ' +  avgTitleLength;
+}
 </script>
 
 </body>
