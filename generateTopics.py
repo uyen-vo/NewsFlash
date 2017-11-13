@@ -9,7 +9,7 @@ import numpy
 import scipy
 import json
 
-dataset_name = "json80K.json"
+dataset_name = "json_test.json"
 
 json_obj = open(dataset_name, 'r')
 
@@ -26,20 +26,25 @@ for j_obj in json_obj:
 print("Elapsed Time: %0.3fs \n" % (time() - t))
 #----------------------------------------------------------------------------------------------------------------------
 
+ 
 #----------------------------------------------------------Lda---------------------------------------------------------
 
 #This was given in the example. It will be replaced with a function that ouputs all topics to a JSON file.
 def print_top_words(model, feature_names, n_top_words):
-    for topic_idx, topic in enumerate(model.components_):
-        message = "Topic #%d: " % topic_idx
-        message += " ".join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]])
-        print(message)
-    print()
+    with open("Generated_Topics.txt", 'w') as f:
+        for topic_idx, topic in enumerate(model.components_):
+            message = "Topic #%d: " % topic_idx
+            message += " ".join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]])
+
+            #Output to a file
+            f.write(message + "\n")
+            #print(message)
+    #print()
 
 
-data_size = 5000    #How many of the total data set will be used
+data_size = 8000    #How many of the total data set will be used
 n_features = 1000
-n_components = 10
+n_components = 50
 max_iterations = 10
 n_top_words = 20
 
@@ -81,18 +86,18 @@ t = time()
 
 #Compute LDA
 tf_lda.fit(tf)
-tfidf_lda.fit(tfidf)
+#tfidf_lda.fit(tfidf)
 
 print("Elapsed Time: %0.3fs." % (time() - t))
 
 #Get the topics generated
 tf_features = tf_vectorizer.get_feature_names()
-tfidf_features = tfidf_vectorizer.get_feature_names()
+#tfidf_features = tfidf_vectorizer.get_feature_names()
 
 #Print results
 print("\nTopics in TF LDA model:")
 print_top_words(tf_lda, tf_features, n_top_words)
 
 print("\nTopics in TFIDF LDA model:")
-print_top_words(tfidf_lda, tfidf_features, n_top_words)
+#print_top_words(tfidf_lda, tfidf_features, n_top_words)
 
