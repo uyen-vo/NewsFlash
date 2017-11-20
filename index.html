@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html>
-<body>
-
-<div id="output"></div>
-
-<script>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NewsFlash | Article Image Recommender</title>
 	
-</script>
 
+	<!-- FONTS
+	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<!-- CSS
+	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  	<link rel="stylesheet" href="css/styles.css">
+
+  	<!-- JAVASCRIPT
+	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  	<script src="javascript/jquery-3.2.1.min.js"></script>
+  	<script src="javascript/script.js"></script>
+	
+	<!-- FAVICON
+	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  	<link rel="icon" type="image/ico" href="images/favicon.ico">
+
+</head>
+
+<body>
+	<img src=""></img>
+		
+	<nav>
+	  <ul>
+	    <li><a onclick="navClick('about')" class="left" href="#">about</a></li>
+	    <li><a onclick="navClick('dev')" class="right" href="#">developers</a></li>
+	  </ul>
+	</nav>
+	
+
+	<div class="sidebar about">
+		fewfw
+	</div>
+
+	<div class="sidebar dev">
+		fewfw
+	</div>
+
+	<div class="main" onclick="navClick('main')">
+		<article>
+			<p>Welcome to <b>NewsFlash,</b> your friendly article image recommender for all your journalistic and educational needs. Simply input your body text and our tool will find high quality stock images that you can use to complement your article or essay.</p>
+			<p>To learn more about <b>NewsFlash</b> and the tools we used to create this application o
+		</article>
+		<textarea autofocus rows="15" placeholder="Paste your article text here."></textarea>
+	</div>
 </body>
+
 </html>
