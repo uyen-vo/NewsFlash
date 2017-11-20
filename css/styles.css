@@ -7,24 +7,26 @@ body{
     font-family: Roboto, sans-serif;
 }
 
-ul {
+nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     border-bottom: 1px solid lightgrey;
+    font-size: 18px;
+    text-transform: capitalize;
 }
 
-li a {
+nav ul li a {
     display: block;
     color: black;
     text-align: center;
-    padding: 20px 50px;
+    padding: 25px 50px;
     text-decoration: none;
-    transition: color .2s ease;
+    transition: color .3s ease;
 }
 
-li a:hover {
+nav ul li a:hover {
     color: blue;
 }
 
@@ -42,28 +44,29 @@ li a:hover {
 
 .sidebar {
     width: 300px;
-    padding: 25px;
+    padding: 20px 50px;
     background-color: white;
     position: absolute;
     transition-timing-function: ease-out;
 }
 
 .about {
-    left: -352px;
-    border-right:1px solid blue;
+    left: -402px;
+    border-right: 1px solid blue;
 }
 
 .dev {
-    right: -352px;
+    right: -402px;
+    border-left: 1px solid blue;
 }
 
-img {
+#logo {
     position:absolute;
     border:1px solid red;
     width: 100px; height: 40px;
     left: 50%;
     margin-left: -50px;
-    margin-top: 9px;
+    margin-top: 17px;
 }
 
 .main {
@@ -79,8 +82,111 @@ textarea{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
+
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid lightgrey;
+    transition: border .4s ease;
+    padding: 5px;
 }
 
-.unfocus {
-    background-color: lightgrey;
+textarea:focus {
+    border:1px solid blue;
+}
+
+button {
+    font-family: Roboto, sans-serif;
+    background-color: white;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    outline:none;
+    border: 1px solid lightgrey;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 10px 0px 20px 0px;
+    transition: all .4s ease;
+}
+
+button:hover{
+    border: 1px solid blue;
+    color:blue;
+}
+
+button:active{
+    color: white;
+    background-color: blue;
+    border: 1px solid blue;
+}
+
+.output{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-top: 1px solid lightgrey;
+    padding-top: 20px;
+}
+
+.o-item{
+    border:1px solid blue;
+    margin-bottom: 10px;
+    background-color:lightgrey;
+}
+
+.tools img {
+    height: 30px;
+    margin: 2px 0px;
+}
+
+.tools .wh {
+    height: 25px;
+}
+
+.tools {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar article {
+    border-bottom: 1px solid lightgrey;
+}
+
+.sidebar article:last-child {
+    border: none;
+}
+
+.members {
+    margin:0;
+    padding-left:20px;
+}
+
+.members li {
+    padding:4px 0px;
+    margin:0;
+}
+
+.members li:nth-child(even){
+    list-style-type: none;
+    font-weight: bold;
+    font-size: 12px;
+    color:blue;
+    text-transform:uppercase;
+}
+
+.members li:first-child{
+    padding-top:0;
+}
+
+.members li:last-child{
+    padding-bottom:0;
+}
+
+article p a .gh {
+    height: 35px;
 }

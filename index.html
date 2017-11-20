@@ -26,7 +26,7 @@
 </head>
 
 <body>
-	<img src=""></img>
+	<img id="logo" src=""></img>
 		
 	<nav>
 	  <ul>
@@ -37,20 +37,69 @@
 	
 
 	<div class="sidebar about">
-		fewfw
+		<article><p><b>NewsFlash</b> is a tool to recommend free stock images for news articles, journals, or student essays. We analyze your text and recommend relevant images from Pixabay's collection of high quality photos and vector graphics based on the topics discussed in your articles. No need to go searching around Google Images or risk copyright infringement. We are your one stop shop for high quality public domain images to supplement your news and educational articles.</p></article>
+		
+		<article>
+			<p><b>Tools used</b>
+				<ul class="tools">
+					<li><a href="https://pixabay.com/"><img src="images/pixabay.svg"></img></a></li>
+					<li><a href="https://webhose.io/"><img class="wh" src="images/webhose.png"></img></a></li>
+					<li><a href="https://nodejs.org/en/"><img src="images/node.svg"></img></a></li>
+					<!-- Add Python libraries, external research, etc. -->
+				</ul>
+			</p>
+		</article>
+
 	</div>
 
 	<div class="sidebar dev">
-		fewfw
+		<article><p>This is the final project for Dr. James Caverlee's CSCE 470 class (Information Storage &amp; Retrieval).</p></article>
+
+		<article>
+			<p><b>Team members</b>
+				<ul class="members">
+					<li>Uyen-Dung Vo</li>
+					<li>uyenvo@tamu.edu</li>
+					<li>Travis Stewart</li>
+					<li>ottsel62@tamu.edu</li>
+					<li>Blair Bryant</li>
+					<li>btrain001@tamu.edu</li>
+					<li>Cameron Gaertner</li>
+					<li>camgaertner@tamu.edu</li>
+					<!-- Add Python libraries, external research, etc. -->
+				</ul>
+			</p>
+		</article>
+
+		<article>
+			<p><a href="https://github.com/uyen-vo/NewsFlash"><img class="gh" src="images/github.jpg"></img></a></p>
+		</article>
 	</div>
 
 	<div class="main" onclick="navClick('main')">
-		<article>
+		<article id="intro">
 			<p>Welcome to <b>NewsFlash,</b> your friendly article image recommender for all your journalistic and educational needs. Simply input your body text and our tool will find high quality stock images that you can use to complement your article or essay.</p>
-			<p>To learn more about <b>NewsFlash</b> and the tools we used to create this application o
+			<p>To learn more about <b>NewsFlash,</b> the tools we used to create the application, and the developers behind the application, please feel free to explore the links above.
 		</article>
-		<textarea autofocus rows="15" placeholder="Paste your article text here."></textarea>
+
+		<textarea id="input" autofocus rows="15" placeholder="Paste your article text here."></textarea>
+		<button onclick="submitClick()" type="submit" value="submit">submit</button>
+
+		<div class="output">
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+			<div class="o-item">This is the image output.</div>
+		</div>
 	</div>
+
+
 </body>
 
 </html>

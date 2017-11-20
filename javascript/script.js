@@ -12,7 +12,7 @@ function navClick( button ) {
 		}
 
 		else {
-			$(".about").animate({left: "-352px"}, 500)
+			$(".about").animate({left: "-402px"}, 500)
 			$(".left").removeClass("active");
 			about = false;
 		}
@@ -28,7 +28,7 @@ function navClick( button ) {
 		}
 
 		else {
-			$(".dev").animate({right: "-352px"}, 500);
+			$(".dev").animate({right: "-402px"}, 500);
 			$(".right").removeClass("active");
 			dev = false;
 		}
@@ -36,16 +36,21 @@ function navClick( button ) {
 
 	if (button === 'main') {
 		if (dev) {
-			$(".dev").animate({right: "-352px"}, 500);
+			$(".dev").animate({right: "-402px"}, 500);
 			$(".right").removeClass("active");
 			dev = false;
 		}
 
 		if (about) {
-			$(".about").animate({left: "-352px"}, 500)
+			$(".about").animate({left: "-402px"}, 500)
 			$(".left").removeClass("active");
 			about = false;
 		}
 	}
 	
+}
+
+function submitClick() {
+	var text = jQuery("textarea#input").val();
+	alert(text)
 }
