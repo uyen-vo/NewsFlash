@@ -26,24 +26,18 @@ for j_obj in json_obj:
 print("Elapsed Time: %0.3fs \n" % (time() - t))
 #----------------------------------------------------------------------------------------------------------------------
 
+def output_to_json(model, feature_names):
+    with open("Generated_Topics.json", 'w') as f:
+        for topic_idx, topic in enumerate(model.components_):   #Generate JSON
+            output_json = { 'index' : topic_idx, 'tags' : [], 'words' : [feature_names[i] for i in topic.argsort()] }
+
+            #Output to a file
+            f.write(json.dumps( output_json, sort_keys=True, separators=(', ', ': ') ) + '\n')
  
 #----------------------------------------------------------Lda---------------------------------------------------------
 
-#This was given in the example. It will be replaced with a function that ouputs all topics to a JSON file.
-def print_top_words(model, feature_names, n_top_words):
-    with open("Generated_Topics.txt", 'w') as f:
-        for topic_idx, topic in enumerate(model.components_):
-            message = "Topic #%d: " % topic_idx
-            message += " ".join([feature_names[i] for i in topic.argsort()[:-n_top_words - 1:-1]])
-
-            #Output to a file
-            f.write(message + "\n")
-            #print(message)
-    #print()
-
-
 data_size = 8000    #How many of the total data set will be used
-n_features = 1000
+n_features = 1000   #Number of most frequent words used to build vocabulary
 n_components = 50
 max_iterations = 10
 n_top_words = 20
@@ -68,7 +62,7 @@ print("Elapsed Time: %0.3fs \n" % (time() - t))
 tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=n_features, stop_words='english')
 tfidf_vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=n_features, stop_words='english')
 
-print("Computing title & document TF & TFIDF...")
+print("Computing TF & TFIDF...")
 t = time()
 
 #Compute TF and TFIDF
@@ -86,18 +80,14 @@ t = time()
 
 #Compute LDA
 tf_lda.fit(tf)
-#tfidf_lda.fit(tfidf)
+tfidf_lda.fit(tfidf)
 
 print("Elapsed Time: %0.3fs." % (time() - t))
 
 #Get the topics generated
 tf_features = tf_vectorizer.get_feature_names()
-#tfidf_features = tfidf_vectorizer.get_feature_names()
+tfidf_features = tfidf_vectorizer.get_feature_names()
 
-#Print results
-print("\nTopics in TF LDA model:")
-print_top_words(tf_lda, tf_features, n_top_words)
-
-print("\nTopics in TFIDF LDA model:")
-#print_top_words(tfidf_lda, tfidf_features, n_top_words)
-
+#Output results
+output_to_json(tf_lda, tf_features)
+#output_to_json(tf_lda, tf_features)
