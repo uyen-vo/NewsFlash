@@ -1,6 +1,7 @@
 var about = false;
 var dev = false;
 
+
 function navClick( button ) {
 	if (button === 'about') {
 		if (!about){

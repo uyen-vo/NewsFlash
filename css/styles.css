@@ -2,7 +2,9 @@ body{
     margin: 0; padding: 0;
     height: 100%;
     width: 100%;
+	min-width: 500px;
     overflow: hidden;
+	/*overflow-y: auto;*/
     position: relative;
     font-family: Roboto, sans-serif;
 }
@@ -71,9 +73,11 @@ nav ul li a:hover {
 
 .main {
     max-width: 1000px;
+	height: calc(100vh - 95px);
     padding: 0 25px;
     padding-top: 20px;
     margin: 0 auto;
+	overflow-y: auto;
 }
 
 textarea{
@@ -189,4 +193,14 @@ button:active{
 
 article p a .gh {
     height: 35px;
+}
+
+.stub {
+	border: 1px solid lightgrey;
+	padding: 10px;
+	font-size: 12px;
+	letter-spacing: .5px;
+	font-style: italic;
+	text-align:center;
+	margin: 50px 0px;
 }
