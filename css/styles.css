@@ -4,7 +4,6 @@ body{
     width: 100%;
 	min-width: 500px;
     overflow: hidden;
-	/*overflow-y: auto;*/
     position: relative;
     font-family: Roboto, sans-serif;
 }
@@ -30,6 +29,10 @@ nav ul li a {
 
 nav ul li a:hover {
     color: blue;
+}
+
+p {
+	letter-spacing: .1px;
 }
 
 .right {
@@ -71,13 +74,17 @@ nav ul li a:hover {
     margin-top: 17px;
 }
 
+.main-container {
+	overflow:auto;
+	height: calc(100vh - 73px);
+}
+
 .main {
     max-width: 1000px;
-	height: calc(100vh - 95px);
     padding: 0 25px;
     padding-top: 20px;
     margin: 0 auto;
-	overflow-y: auto;
+	overflow: hidden;
 }
 
 textarea{
@@ -127,19 +134,22 @@ button:active{
     border: 1px solid blue;
 }
 
-.output{
+.img-output{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     border-top: 1px solid lightgrey;
-    padding-top: 20px;
+	border-bottom: 1px solid lightgrey;
+    padding: 10px 0px;
 }
 
 .o-item{
     border:1px solid blue;
-    margin-bottom: 10px;
+    margin: 10px 0px;
     background-color:lightgrey;
+	height:150px;
+	width: 150px;
 }
 
 .tools img {
@@ -196,11 +206,9 @@ article p a .gh {
 }
 
 .stub {
-	border: 1px solid lightgrey;
-	padding: 10px;
+	padding: 10px 0px 30px 0px;
 	font-size: 12px;
 	letter-spacing: .5px;
 	font-style: italic;
 	text-align:center;
-	margin: 50px 0px;
 }
