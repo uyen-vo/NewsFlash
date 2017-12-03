@@ -52,6 +52,33 @@ function navClick( button ) {
 }
 
 function submitClick() {
-	var text = jQuery("textarea#input").val();
-	alert(text)
+	$text = $('textarea#input').val();
+/*         $.ajax({
+            //the url to send the data to
+            url: "/",
+            //the data to send to
+            data: {text : $text},
+			//type. for eg: GET, POST
+			type: "POST",
+			//datatype expected to get in reply form server
+			dataType: "text",
+			//on success
+            success: function(ret){
+                console.log("got" + images);
+            },
+            //on error
+            error: function(){
+                console.log(ret);
+            }
+}); */
+/* 	$.getJSON('/get_images', {
+        a: $('textarea#input').val()
+      }, function(data) {
+        console.log(data.result);
+	}); */
+$.getJSON('/get_images', {
+        a: $('textarea#input').val()
+      }, function(data) {
+        console.log(data.result);
+      });
 }

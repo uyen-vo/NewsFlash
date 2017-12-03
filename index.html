@@ -12,16 +12,16 @@
 
 	<!-- CSS
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  	<link rel="stylesheet" href="css/styles.css">
+  	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
   	<!-- JAVASCRIPT
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  	<script src="javascript/jquery-3.2.1.min.js"></script>
-  	<script src="javascript/script.js"></script>
+  	<script src="{{ url_for('static', filename='javascript/jquery-3.2.1.min.js') }}"></script>
+  	<script src="{{ url_for('static', filename='javascript/script.js') }}"></script>
 	
 	<!-- FAVICON
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  	<link rel="icon" type="image/ico" href="images/favicon.ico">
+  	<link rel="icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
 </head>
 
@@ -42,9 +42,9 @@
 		<article>
 			<p><b>Tools used</b>
 				<ul class="tools">
-					<li><a href="https://pixabay.com/"><img src="images/pixabay.svg"></img></a></li>
-					<li><a href="https://webhose.io/"><img class="wh" src="images/webhose.png"></img></a></li>
-					<li><a href="https://nodejs.org/en/"><img src="images/node.svg"></img></a></li>
+					<li><a href="https://pixabay.com/"><img src="{{ url_for('static', filename='images/pixabay.svg') }}"></img></a></li>
+					<li><a href="https://webhose.io/"><img class="wh" src="{{ url_for('static', filename='images/webhose.png') }}"></img></a></li>
+					<li><a href="https://nodejs.org/en/"><img src="{{ url_for('static', filename='images/node.svg') }}"></img></a></li>
 					<!-- Add Python libraries, external research, etc. -->
 				</ul>
 			</p>
@@ -72,7 +72,7 @@
 		</article>
 
 		<article>
-			<p><a href="https://github.com/uyen-vo/NewsFlash"><img class="gh" src="images/github.jpg"></img></a></p>
+			<p><a href="https://github.com/uyen-vo/NewsFlash"><img class="gh" src="{{ url_for('static', filename='images/github.jpg') }}"></img></a></p>
 		</article>
 	</div>
 
