@@ -47,20 +47,26 @@ def getTopicNewDoc(obj_index, model, feature_names, top_n):
 
         r_json += json.dumps( output_json, sort_keys=True, separators=(', ', ': ') ) 
     return r_json
- 
+
+
+def getTopics(model, feature_names, top_n):
+    tags = []
+    for topic_idx, topic in enumerate(model.components_):   #Generate JSON
+        tags = [feature_names[i] for i in (-topic).argsort()][:top_n]
+
+    return tags
 
 #----------------------------------------------------------Lda---------------------------------------------------------
-
 #Text from the new document
 doc_text = ""
-doc_topics = {}
+doc_topics = []
 
 
 #-------------------------------------------Setup LDA-------------------------------------------
 n_features = 1000   #Number of most frequent words used to build vocabulary
 n_components = 1
 max_iterations = 5
-n_top_words = 20
+n_top_words = 4
 
 topics = []
 topic_index = 0
@@ -82,9 +88,10 @@ tf_lda.fit(tf_vectorizer.fit_transform(corpus))
 
 
 #------------------------------------------Topic Results------------------------------------------
-doc_topics = getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
+#doc_topics = getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
 #topics.append(getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words))
 
+doc_topics = getTopics(tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
 
 
 print doc_topics
