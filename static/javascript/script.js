@@ -53,32 +53,19 @@ function navClick( button ) {
 
 function submitClick() {
 	$text = $('textarea#input').val();
-/*         $.ajax({
-            //the url to send the data to
-            url: "/",
-            //the data to send to
-            data: {text : $text},
-			//type. for eg: GET, POST
-			type: "POST",
-			//datatype expected to get in reply form server
-			dataType: "text",
-			//on success
-            success: function(ret){
-                console.log("got" + images);
-            },
-            //on error
-            error: function(){
-                console.log(ret);
-            }
-}); */
-/* 	$.getJSON('/get_images', {
-        a: $('textarea#input').val()
-      }, function(data) {
-        console.log(data.result);
-	}); */
-$.getJSON('/get_images', {
-        a: $('textarea#input').val()
-      }, function(data) {
-        console.log(data.result);
-      });
+	$.getJSON('/get_images', {
+			a: $('textarea#input').val()
+		  }, function(data) {
+			console.log(data.result);
+		  });
+		
+	
+	var API_KEY = '6980968-e13a5874e345e16b4a8c7f66a';
+	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('red roses');
+	$.getJSON(URL, function(data){
+	if (parseInt(data.totalHits) > 0)
+		$.each(data.hits, function(i, hit){ console.log(hit.webformatURL); });
+	else
+		console.log('No hits');
+	});
 }
