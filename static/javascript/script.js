@@ -56,12 +56,12 @@ function submitClick() {
 	$.getJSON('/get_images', {
 			a: $('textarea#input').val()
 		  }, function(data) {
-			console.log(data.result);
+			console.log(data);
 		  });
 		
 	
 	var API_KEY = '6980968-e13a5874e345e16b4a8c7f66a';
-	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('red roses');
+	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('data[0]');
 	$.getJSON(URL, function(data){
 	if (parseInt(data.totalHits) > 0)
 		//$.each(data.hits, function(i, hit){ console.log(hit.webformatURL); });
