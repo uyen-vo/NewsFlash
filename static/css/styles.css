@@ -150,6 +150,8 @@ button:active{
     background-color:lightgrey;
 	height:150px;
 	width: 150px;
+	display: box;
+	overflow: hidden;
 }
 
 .tools img {
@@ -211,4 +213,13 @@ article p a .gh {
 	letter-spacing: .5px;
 	font-style: italic;
 	text-align:center;
+}
+
+.fillwidth { 
+  width: 100%; 
+  height: auto; 
+}
+.fillheight { 
+  height: 100%; 
+  width: auto; 
 }
