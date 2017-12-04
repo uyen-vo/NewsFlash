@@ -1,5 +1,6 @@
 var about = false;
 var dev = false;
+var API_KEY = '6980968-e13a5874e345e16b4a8c7f66a';
 
 
 function navClick( button ) {
@@ -53,31 +54,30 @@ function navClick( button ) {
 
 function submitClick() {
 	$text = $('textarea#input').val();
+	$result = ""
 	$.getJSON('/get_images', {
 			a: $('textarea#input').val()
 		  }, function(data) {
-			console.log(data);
+			console.log(data)
+			result = data
+			var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(result[0]);
+			$.getJSON(URL, function(data){
+			if (parseInt(data.totalHits) > 0)
+				//$.each(data.hits, function(i, hit){ console.log(hit.webformatURL); });
+				$.each(data.hits, function(i, hit) {
+					var imgClass = ''
+					if ( hit.webformatHeight > hit.webformatWidth ) {
+						imgClass = 'fillwidth';
+					} else {
+						imgClass = 'fillheight';
+					}
+					
+					var newDiv = "<div class='o-item'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></div>";
+					$( ".img-output" ).append( newDiv );
+					console.log(newDiv)
+				});
+			else
+				console.log('No hits');
+			});
 		  });
-		
-	
-	var API_KEY = '6980968-e13a5874e345e16b4a8c7f66a';
-	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('data[0]');
-	$.getJSON(URL, function(data){
-	if (parseInt(data.totalHits) > 0)
-		//$.each(data.hits, function(i, hit){ console.log(hit.webformatURL); });
-		$.each(data.hits, function(i, hit) {
-			var imgClass = ''
-			if ( hit.webformatHeight > hit.webformatWidth ) {
-				imgClass = 'fillwidth';
-			} else {
-				imgClass = 'fillheight';
-			}
-			
-			var newDiv = "<div class='o-item'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></div>";
-			$( ".img-output" ).append( newDiv );
-			console.log(newDiv)
-		});
-	else
-		console.log('No hits');
-	});
 }
