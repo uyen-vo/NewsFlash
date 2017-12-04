@@ -3,6 +3,7 @@ from sklearn.decomposition import LatentDirichletAllocation
 
 #http://scikit-learn.org/stable/auto_examples/applications/plot_topics_extraction_with_nmf_lda.html#sphx-glr-auto-examples-applications-plot-topics-extraction-with-nmf-lda-py 
 
+from operator import itemgetter
 import numpy
 import scipy
 import json
@@ -25,49 +26,47 @@ def output_to_file(file_name, doc_list):
 
 def getTopicJson(json_obj, obj_index, model, feature_names, top_n):
     r_json = ""
+    tags = {}
     for topic_idx, topic in enumerate(model.components_):   #Generate JSON
-        output_json = { 'index' : obj_index, 'tag_list' : [feature_names[i] for i in (-topic).argsort()][:top_n], 'tag_rank' : [topic[i] / float(len(-topic)) for i in (-topic).argsort()][:top_n] } 
+        for i in (-topic).argsort()[:top_n]:
+            tags.update( { feature_names[i] : (topic[i] / float(len(-topic))) } )
+
+        output_json = { 'index' : obj_index, 'tags' : sorted(tags.items(), key=itemgetter(1), reverse=True) } 
 
         r_json += json.dumps( output_json, sort_keys=True, separators=(', ', ': ') ) 
-    #return r_json
-    return output_json
+    return r_json
  
 def getTopicNewDoc(obj_index, model, feature_names, top_n):
     r_json = ""
+    tags = {}
     for topic_idx, topic in enumerate(model.components_):   #Generate JSON
-        output_json = { 'index' : obj_index, 'tag_list' : [feature_names[i] for i in (-topic).argsort()][:top_n], 'tag_rank' : [topic[i] / float(len(-topic)) for i in (-topic).argsort()][:top_n] } 
+        for i in (-topic).argsort()[:top_n]:
+            tags.update( { feature_names[i] : (topic[i] / float(len(-topic))) } )
+
+        output_json = { 'index' : obj_index, 'tags' : sorted(tags.items(), key=itemgetter(1), reverse=True) } 
 
         r_json += json.dumps( output_json, sort_keys=True, separators=(', ', ': ') ) 
-    #return r_json
-    return output_json
- 
+    return r_json
+
+
+def getTopics(model, feature_names, top_n):
+    tags = []
+    for topic_idx, topic in enumerate(model.components_):   #Generate JSON
+        tags = [feature_names[i] for i in (-topic).argsort()][:top_n]
+
+    return tags
 
 #----------------------------------------------------------Lda---------------------------------------------------------
-
 #Text from the new document
 doc_text = ""
-doc_topics = {}
-
-
-
-dataset_name = "DataSet/json_test.json"
-json_obj = open(dataset_name, 'r')
-json_list = []
-
-#Add each json from all the files to json_list
-for j_obj in json_obj:
-    json_list.append(json.loads(j_obj))
-
-doc_text += json_list[0]["title"] + " " + json_list[0]["text"]
-
-
+doc_topics = []
 
 
 #-------------------------------------------Setup LDA-------------------------------------------
 n_features = 1000   #Number of most frequent words used to build vocabulary
 n_components = 1
 max_iterations = 5
-n_top_words = 20
+n_top_words = 4
 
 topics = []
 topic_index = 0
@@ -89,13 +88,10 @@ tf_lda.fit(tf_vectorizer.fit_transform(corpus))
 
 
 #------------------------------------------Topic Results------------------------------------------
-doc_topics = getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
+#doc_topics = getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
 #topics.append(getTopicNewDoc(topic_index, tf_lda, tf_vectorizer.get_feature_names(), n_top_words))
 
+doc_topics = getTopics(tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
 
 
-
-
-#Output topics to file
 print doc_topics
-#output_to_file("ldaNewDoc.json", topics)
