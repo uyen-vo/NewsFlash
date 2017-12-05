@@ -58,11 +58,13 @@ p {
 .about {
     left: -402px;
     border-right: 1px solid blue;
+    z-index:9999;
 }
 
 .dev {
     right: -402px;
     border-left: 1px solid blue;
+    z-index:9999;
 }
 
 #logo {
@@ -78,12 +80,20 @@ p {
 	height: calc(100vh - 73px);
 }
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 .main {
     max-width: 1000px;
     padding: 0 25px;
     padding-top: 20px;
     margin: 0 auto;
 	overflow: hidden;
+}
+
+#title {
+    margin-bottom:3px;
 }
 
 textarea{
@@ -109,6 +119,7 @@ textarea:focus {
 
 .line {
     border-top: 1px solid lightgrey;
+    margin-top: 10px;
 }
 
 button {
@@ -141,6 +152,12 @@ button:active{
 .one-container, .two-container, .three-container {
     width: 32%;
     float:left;
+    margin-bottom: 20px;
+}
+
+.img-container p{
+    text-align: center;
+    margin: 10px 0px;
 }
 
 .img-output{
@@ -191,6 +208,9 @@ button:active{
     margin: 2px 0px;
 }
 
+.tools .fl {
+    height: 40px;
+}
 .tools .wh {
     height: 25px;
 }
@@ -240,7 +260,6 @@ article p a .gh {
 }
 
 .stub {
-    margin-top: 30px;
 	padding: 10px 0px 30px 0px;
 	font-size: 12px;
 	letter-spacing: .5px;

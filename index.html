@@ -47,6 +47,7 @@
 					<li><a href="https://pixabay.com/"><img src="{{ url_for('static', filename='images/pixabay.svg') }}"></img></a></li>
 					<li><a href="https://webhose.io/"><img class="wh" src="{{ url_for('static', filename='images/webhose.png') }}"></img></a></li>
 					<li><a href="https://nodejs.org/en/"><img src="{{ url_for('static', filename='images/node.svg') }}"></img></a></li>
+					<li><a href="http://flask.pocoo.org/"><img class="fl" src="{{ url_for('static', filename='images/flask.png') }}"></img></a></li>
 					<!-- Add Python libraries, external research, etc. -->
 				</ul>
 			</p>
@@ -84,22 +85,23 @@
 				<p>Welcome to <b>NewsFlash</b>&mdash;your friendly article image recommender for all your journalistic and educational needs. Simply input your body text and our tool will find high quality stock images that you can use to complement your article or essay.</p>
 			</article>
 
+			<textarea id="title" autofocus rows="1" placeholder="Paste your title text here. (Optional)"></textarea>
 			<textarea id="input" autofocus rows="15" placeholder="Paste your article text here."></textarea>
 			<button onclick="submitClick()" type="submit" value="submit">submit</button>
 			
 			<div class="line"></div>
 			
-			<div class="one-container">
+			<div class="one-container img-container">
 				<p></p>
 				<div class="img-output one"></div>
 			</div>
 
-			<div class="two-container">
+			<div class="two-container img-container">
 				<p></p>
 				<div class="img-output two"></div>
 			</div>
 
-			<div class="three-container">
+			<div class="three-container img-container">
 				<p></p>
 				<div class="img-output three"></div>
 			</div>

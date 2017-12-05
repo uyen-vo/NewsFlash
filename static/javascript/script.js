@@ -53,8 +53,6 @@ function navClick( button ) {
 }
 
 function submitClick() {
-	$( ".img-output" ).fadeTo(3, 1);
-
 	$text = $('textarea#input').val();
 	$result = ""
 	$.getJSON('/get_images', {
@@ -71,15 +69,24 @@ function submitClick() {
 }
 
 function getImages( term, divNum ) {
-	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(term);
+	// TODO: show more &page=2, &per_page=N
+	var URL = "https://pixabay.com/api/?key="+API_KEY+"&response_group=high_resolution&q="+encodeURIComponent(term);
 	$.getJSON(URL, function(data){
 	if (parseInt(data.totalHits) > 0){
-		console.log(parseInt(data.totalHits))
+		$( ".img-output" ).fadeTo(3, 1);
 		$( "." + divNum ).empty();
 		$( "." + divNum + "-container p" ).empty();
 
-		var title = "Images related to <i><b>" + term + "</b></i>";
+		num = ''
+		switch (divNum) {
+			case 'one' : num = 1; break;
+			case 'two' : num = 2; break;
+			case 'three' : num = 3; break;
+		}
+		var title = "<b>Topic " + num + ": <i>" + term + "</i></b>";
 		$( "." + divNum + "-container p" ).append( title );
+
+		console.log(data.hits)
 
 		$.each(data.hits, function(i, hit) {
 			var imgClass = ''
@@ -88,10 +95,8 @@ function getImages( term, divNum ) {
 			} else {
 				imgClass = 'fillheight';
 			}
-
-			var caption = "<a href='" + hit.pageURL + "'>Click here for a free full-scale download of this high-res image.</a>";
 			
-			var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.pageURL + "\">Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
+			var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.fullHDURL + "\" download>Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
 			$( "." + divNum ).append( newDiv );
 		});
 	}
