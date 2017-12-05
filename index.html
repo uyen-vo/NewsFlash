@@ -13,11 +13,13 @@
 	<!-- CSS
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  	<link rel="stylesheet" href="{{ url_for('static', filename='css/lightbox.css') }}">
 
   	<!-- JAVASCRIPT
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   	<script src="{{ url_for('static', filename='javascript/jquery-3.2.1.min.js') }}"></script>
   	<script src="{{ url_for('static', filename='javascript/script.js') }}"></script>
+  	<script src="{{ url_for('static', filename='javascript/lightbox.js') }}"></script>
 	
 	<!-- FAVICON
 	 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -26,7 +28,7 @@
 </head>
 
 <body>
-	<img id="logo" src=""></img>
+	<img id="logo" src="{{ url_for('static', filename='images/logo.png') }}"></img>
 		
 	<nav id = "nav">
 	  <ul>
@@ -85,11 +87,21 @@
 			<textarea id="input" autofocus rows="15" placeholder="Paste your article text here."></textarea>
 			<button onclick="submitClick()" type="submit" value="submit">submit</button>
 			
-			<div class="output">
-				<p><b>Your related images</b></p>
-				<div class="img-output">
-					
-				</div>
+			<div class="line"></div>
+			
+			<div class="one-container">
+				<p></p>
+				<div class="img-output one"></div>
+			</div>
+
+			<div class="two-container">
+				<p></p>
+				<div class="img-output two"></div>
+			</div>
+
+			<div class="three-container">
+				<p></p>
+				<div class="img-output three"></div>
 			</div>
 			
 			<footer>

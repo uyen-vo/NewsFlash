@@ -53,6 +53,8 @@ function navClick( button ) {
 }
 
 function submitClick() {
+	$( ".img-output" ).fadeTo(3, 1);
+
 	$text = $('textarea#input').val();
 	$result = ""
 	$.getJSON('/get_images', {
@@ -60,24 +62,42 @@ function submitClick() {
 		  }, function(data) {
 			console.log(data)
 			result = data
-			var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(result[0]);
-			$.getJSON(URL, function(data){
-			if (parseInt(data.totalHits) > 0)
-				//$.each(data.hits, function(i, hit){ console.log(hit.webformatURL); });
-				$.each(data.hits, function(i, hit) {
-					var imgClass = ''
-					if ( hit.webformatHeight > hit.webformatWidth ) {
-						imgClass = 'fillwidth';
-					} else {
-						imgClass = 'fillheight';
-					}
-					
-					var newDiv = "<div class='o-item'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></div>";
-					$( ".img-output" ).append( newDiv );
-					console.log(newDiv)
-				});
-			else
-				console.log('No hits');
-			});
+			getImages(result[0], "one");
+			getImages(result[1], "two");
+			getImages(result[2], "three");
+
+			// TODO: case for less than 3 topics
 		  });
+}
+
+function getImages( term, divNum ) {
+	var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(term);
+	$.getJSON(URL, function(data){
+	if (parseInt(data.totalHits) > 0){
+		console.log(parseInt(data.totalHits))
+		$( "." + divNum ).empty();
+		$( "." + divNum + "-container p" ).empty();
+
+		var title = "Images related to <i><b>" + term + "</b></i>";
+		$( "." + divNum + "-container p" ).append( title );
+
+		$.each(data.hits, function(i, hit) {
+			var imgClass = ''
+			if ( hit.webformatHeight > hit.webformatWidth ) {
+				imgClass = 'fillwidth';
+			} else {
+				imgClass = 'fillheight';
+			}
+
+			var caption = "<a href='" + hit.pageURL + "'>Click here for a free full-scale download of this high-res image.</a>";
+			
+			var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.pageURL + "\">Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
+			$( "." + divNum ).append( newDiv );
+		});
+	}
+	else {
+		// TODO: case for no hits returned -> check out next topic(s)
+		console.log('No hits');
+	}
+	});
 }

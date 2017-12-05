@@ -2,7 +2,7 @@ body{
     margin: 0; padding: 0;
     height: 100%;
     width: 100%;
-	min-width: 500px;
+	min-width: 600px;
     overflow: hidden;
     position: relative;
     font-family: Roboto, sans-serif;
@@ -67,10 +67,9 @@ p {
 
 #logo {
     position:absolute;
-    border:1px solid red;
-    width: 100px; height: 40px;
+    height: 40px;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -91px;
     margin-top: 17px;
 }
 
@@ -108,6 +107,10 @@ textarea:focus {
     border:1px solid blue;
 }
 
+.line {
+    border-top: 1px solid lightgrey;
+}
+
 button {
     font-family: Roboto, sans-serif;
     background-color: white;
@@ -119,8 +122,9 @@ button {
     border: 1px solid lightgrey;
     padding: 10px 15px;
     font-size: 16px;
-    margin: 10px 0px 20px 0px;
+    margin: 10px 0px;
     transition: all .4s ease;
+    margin-border: 1px solid;
 }
 
 button:hover{
@@ -134,25 +138,53 @@ button:active{
     border: 1px solid blue;
 }
 
+.one-container, .two-container, .three-container {
+    width: 32%;
+    float:left;
+}
+
 .img-output{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border-top: 1px solid lightgrey;
-	border-bottom: 1px solid lightgrey;
-    padding: 10px 0px;
+    border:1px solid lightgrey;
+    padding-top: 3px;
+    text-align: center;
+    opacity:0;
+}
+
+.two-container {
+    margin: 0 2%;
 }
 
 .o-item{
-    border:1px solid blue;
-    margin: 10px 0px;
+    margin: 3px;
     background-color:lightgrey;
 	height:150px;
 	width: 150px;
-	display: box;
+    display: inline-block;
 	overflow: hidden;
+    position:relative;
 }
+
+.o-item:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:none;
+    pointer-events: none;
+}
+
+.o-item:hover:before{
+    background: rgba(0,0,255, 0.3);
+    transition: all .5s ease;
+}
+
+/*.o-item:hover{
+    transition: all .5s ease;
+    filter: brightness(50%);
+}*/
 
 .tools img {
     height: 30px;
@@ -208,6 +240,7 @@ article p a .gh {
 }
 
 .stub {
+    margin-top: 30px;
 	padding: 10px 0px 30px 0px;
 	font-size: 12px;
 	letter-spacing: .5px;
@@ -219,6 +252,7 @@ article p a .gh {
   width: 100%; 
   height: auto; 
 }
+
 .fillheight { 
   height: 100%; 
   width: auto; 
