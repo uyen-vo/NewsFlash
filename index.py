@@ -8,7 +8,7 @@ import json
 import jinja2
 
 app = Flask(__name__, static_folder='static')
-app.jinja_loader = jinja2.FileSystemLoader('../NewsFlash')
+app.jinja_loader = jinja2.FileSystemLoader('.')
 
 #This pyhton script
 # 1) Takes in the text of the new document 
@@ -58,15 +58,18 @@ def get_topics(model, feature_names, top_n):
 	
 @app.route('/get_images')
 def get_images():
-	a = request.args.get('a', "empty", type=str)
-	doc_text = a;
+	a = request.args.get('a', "", type=str)
+	b = request.args.get('b', "", type=str)
+	doc_text = a
+	for i in range(0,6):
+		doc_text += " " + b
 	print doc_text
 	doc_topics = {}
 	#-------------------------------------------Setup LDA-------------------------------------------
 	n_features = 1000   #Number of most frequent words used to build vocabulary
 	n_components = 1
 	max_iterations = 5
-	n_top_words = 4
+	n_top_words = 20
 
 	topics = []
 	topic_index = 0

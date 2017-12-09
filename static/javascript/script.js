@@ -56,7 +56,8 @@ function submitClick() {
 	$text = $('textarea#input').val();
 	$result = ""
 	$.getJSON('/get_images', {
-			a: $('textarea#input').val()
+			a: $('textarea#input').val(),
+			b: $('textarea#title').val()
 		  }, function(data) {
 			console.log(data)
 			result = data
