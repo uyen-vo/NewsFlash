@@ -63,6 +63,8 @@ function submitClick() {
 			getImages(result[0], "one");
 			getImages(result[1], "two");
 			getImages(result[2], "three");
+			getImages(result[3], "four");
+			getImages(result[4], "five");
 
 			// TODO: case for less than 3 topics
 		  });
@@ -70,8 +72,9 @@ function submitClick() {
 
 function getImages( term, divNum ) {
 	// TODO: show more &page=2, &per_page=N
-	var URL = "https://pixabay.com/api/?key="+API_KEY+"&response_group=high_resolution&q="+encodeURIComponent(term);
+	var URL = "https://pixabay.com/api/?key="+API_KEY+"&per_page=18&response_group=high_resolution&q="+encodeURIComponent(term);
 	$.getJSON(URL, function(data){
+	console.log(parseInt(data.totalHits));
 	if (parseInt(data.totalHits) > 0){
 		$( ".img-output" ).fadeTo(3, 1);
 		$( "." + divNum ).empty();
@@ -82,7 +85,10 @@ function getImages( term, divNum ) {
 			case 'one' : num = 1; break;
 			case 'two' : num = 2; break;
 			case 'three' : num = 3; break;
+			case 'four' : num = 4; break;
+			case 'five' : num = 5; break;
 		}
+
 		var title = "<b>Topic " + num + ": <i>" + term + "</i></b>";
 		$( "." + divNum + "-container p" ).append( title );
 
@@ -102,7 +108,7 @@ function getImages( term, divNum ) {
 	}
 	else {
 		// TODO: case for no hits returned -> check out next topic(s)
-		console.log('No hits');
+		console.log('No hits' + divNum + " " + term);
 	}
 	});
 }

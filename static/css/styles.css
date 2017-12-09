@@ -149,31 +149,24 @@ button:active{
     border: 1px solid blue;
 }
 
-.one-container, .two-container, .three-container {
-    width: 32%;
-    float:left;
+.one-container, .two-container, .three-container, .four-container, .five-container{
     margin-bottom: 20px;
 }
 
 .img-container p{
-    text-align: center;
     margin: 10px 0px;
 }
 
 .img-output{
     border:1px solid lightgrey;
+	margin:0 auto;
     padding-top: 3px;
-    text-align: center;
     opacity:0;
-}
-
-.two-container {
-    margin: 0 2%;
+	display:inline-block;
 }
 
 .o-item{
     margin: 3px;
-    background-color:lightgrey;
 	height:150px;
 	width: 150px;
     display: inline-block;
