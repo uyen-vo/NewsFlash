@@ -60,6 +60,7 @@ function submitClick() {
 		  }, function(data) {
 			console.log(data)
 			result = data
+
 			getImages(result[0], "one");
 			getImages(result[1], "two");
 			getImages(result[2], "three");
