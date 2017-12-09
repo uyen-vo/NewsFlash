@@ -8,7 +8,7 @@ import json
 import jinja2
 
 app = Flask(__name__, static_folder='static')
-app.jinja_loader = jinja2.FileSystemLoader('../NewsFlash')
+app.jinja_loader = jinja2.FileSystemLoader('.')
 
 #This pyhton script
 # 1) Takes in the text of the new document 
