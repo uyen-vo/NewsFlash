@@ -60,7 +60,7 @@ def get_topics(model, feature_names, top_n):
 def get_images():
 	a = request.args.get('a', "", type=str)
 	b = request.args.get('b', "", type=str)
-	doc_text = a;
+	doc_text = a
 	for i in range(0,6):
 		doc_text += " " + b
 	print doc_text
