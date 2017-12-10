@@ -61,56 +61,70 @@ function submitClick() {
 		  }, function(data) {
 			console.log(data)
 			result = data
-
-			getImages(result[0], "one");
-			getImages(result[1], "two");
-			getImages(result[2], "three");
-			getImages(result[3], "four");
-			getImages(result[4], "five");
+			getImages(result)
 
 			// TODO: case for less than 3 topics
 		  });
 }
 
-function getImages( term, divNum ) {
-	// TODO: show more &page=2, &per_page=N
-	var URL = "https://pixabay.com/api/?key="+API_KEY+"&per_page=18&response_group=high_resolution&q="+encodeURIComponent(term);
-	$.getJSON(URL, function(data){
-	console.log(parseInt(data.totalHits));
-	if (parseInt(data.totalHits) > 0){
-		$( ".img-output" ).fadeTo(3, 1);
-		$( "." + divNum ).empty();
-		$( "." + divNum + "-container p" ).empty();
+function getImages( result ) {
+	topicsFound = 0
+	var i = 0;
+	divNum = ["one", "two", "three", "four", "five"];
+	console.log("results length: " + result.length);
+	while(topicsFound < 5 && i < result.length)
+	{
+		console.log(i)
+		term = result[i]
+		console.log("term" + term);
+		var URL = "https://pixabay.com/api/?key="+API_KEY+"&per_page=18&response_group=high_resolution&q="+encodeURIComponent(term);
+		$.ajax({
+			dataType: "json",
+			url: URL,	
+			async: false,
+			success: function(data) {
+				console.log(parseInt(data.totalHits));
+				if (parseInt(data.totalHits) > 0){
+					++topicsFound
+					$( "." + divNum[topicsFound] ).fadeTo(3, 1);
+					$( "." + divNum[topicsFound] ).empty();
+					$( "." + divNum[topicsFound] + "-container p" ).empty();
+					$( "." + divNum[topicsFound] + "-container").css("display", "block");
 
-		num = ''
-		switch (divNum) {
-			case 'one' : num = 1; break;
-			case 'two' : num = 2; break;
-			case 'three' : num = 3; break;
-			case 'four' : num = 4; break;
-			case 'five' : num = 5; break;
+					num = ''
+					switch (divNum[topicsFound - 1]) {
+						case 'one' : num = 1; break;
+						case 'two' : num = 2; break;
+						case 'three' : num = 3; break;
+						case 'four' : num = 4; break;
+						case 'five' : num = 5; break;
+					}
+					console.log("TERM BEFORE TITLE: " + term)
+					var title = "<b>Topic " + num + ": <i>" + term + "</i></b>";
+					$( "." + divNum[topicsFound] + "-container p" ).append( title );
+
+					console.log(data.hits)
+
+					$.each(data.hits, function(i, hit) {
+						var imgClass = ''
+						if ( hit.webformatHeight > hit.webformatWidth ) {
+							imgClass = 'fillwidth';
+						} else {
+							imgClass = 'fillheight';
+						}
+						
+						var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.fullHDURL + "\" download>Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
+						$( "." + divNum[topicsFound] ).append( newDiv );
+					});
+				}
+				else {
+					// TODO: case for no hits returned -> check out next topic(s)
+					console.log('No hits' + divNum[topicsFound] + " " + term);
+				}
 		}
-
-		var title = "<b>Topic " + num + ": <i>" + term + "</i></b>";
-		$( "." + divNum + "-container p" ).append( title );
-
-		console.log(data.hits)
-
-		$.each(data.hits, function(i, hit) {
-			var imgClass = ''
-			if ( hit.webformatHeight > hit.webformatWidth ) {
-				imgClass = 'fillwidth';
-			} else {
-				imgClass = 'fillheight';
-			}
-			
-			var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.fullHDURL + "\" download>Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
-			$( "." + divNum ).append( newDiv );
-		});
-	}
-	else {
-		// TODO: case for no hits returned -> check out next topic(s)
-		console.log('No hits' + divNum + " " + term);
-	}
+		
 	});
+	i++
+	// TODO: show more &page=2, &per_page=N
+	}
 }

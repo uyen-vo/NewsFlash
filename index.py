@@ -90,7 +90,6 @@ def get_images():
 
 	#------------------------------------------Topic Results------------------------------------------
 	doc_topics = get_topics(tf_lda, tf_vectorizer.get_feature_names(), n_top_words)
-
 	return jsonify(doc_topics)
 
 @app.route('/')
