@@ -151,6 +151,7 @@ button:active{
 
 .one-container, .two-container, .three-container, .four-container, .five-container{
     margin-bottom: 20px;
+	display:none;
 }
 
 .img-container p{
@@ -160,7 +161,9 @@ button:active{
 .img-output{
     border:1px solid lightgrey;
 	margin:0 auto;
-    padding-top: 3px;
+	padding-left:30px;
+    padding-top: 12px;
+	padding-bottom: 6px;
     opacity:0;
 	display:inline-block;
 }
