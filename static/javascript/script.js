@@ -119,4 +119,12 @@ function getImages( result ) {
 	});
 	i++
 	}
+	// Clear unused divs
+	for(j = i + 1; j < 6; ++j)
+	{
+		$( "." + divNum[j - 1] ).fadeTo(3, 1);
+		$( "." + divNum[j - 1] ).empty();
+		$( "." + divNum[j - 1] + "-container p" ).empty();
+		$( "." + divNum[j - 1] + "-container").css("display", "none");
+	}
 }
