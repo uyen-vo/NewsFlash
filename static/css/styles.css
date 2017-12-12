@@ -204,8 +204,8 @@ button:active{
     margin: 2px 0px;
 }
 
-.tools .fl {
-    height: 40px;
+.tools .fl, .tools .sk {
+    height: 45px;
 }
 .tools .wh {
     height: 25px;
