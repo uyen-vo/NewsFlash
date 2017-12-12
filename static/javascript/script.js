@@ -53,11 +53,12 @@ function navClick( button ) {
 }
 
 function submitClick() {
+	
 	$text = $('textarea#input').val();
 	$result = ""
 	$.getJSON('/get_images', {
-			a: $('textarea#input').val(),
-			b: $('textarea#title').val()
+			a: encodeURIComponent($('textarea#input').val()),
+			b: encodeURIComponent($('textarea#title').val())
 		  }, function(data) {
 			console.log(data)
 			result = data

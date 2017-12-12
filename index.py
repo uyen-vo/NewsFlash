@@ -6,6 +6,7 @@ import numpy
 import scipy
 import json
 import jinja2
+import urllib
 
 app = Flask(__name__, static_folder='static')
 app.jinja_loader = jinja2.FileSystemLoader('.')
@@ -58,8 +59,9 @@ def get_topics(model, feature_names, top_n):
 	
 @app.route('/get_images')
 def get_images():
-	a = request.args.get('a', "", type=str)
-	b = request.args.get('b', "", type=str)
+	a = urllib.unquote(request.args.get('a', "", type=str))
+	b = urllib.unquote(request.args.get('b', "", type=str))
+	
 	doc_text = a
 	for i in range(0,6):
 		doc_text += " " + b
