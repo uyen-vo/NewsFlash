@@ -62,8 +62,6 @@ function submitClick() {
 			console.log(data)
 			result = data
 			getImages(result)
-
-			// TODO: case for less than 3 topics
 		  });
 }
 
@@ -86,23 +84,18 @@ function getImages( result ) {
 				console.log(parseInt(data.totalHits));
 				if (parseInt(data.totalHits) > 0){
 					++topicsFound
-					$( "." + divNum[topicsFound] ).fadeTo(3, 1);
-					$( "." + divNum[topicsFound] ).empty();
-					$( "." + divNum[topicsFound] + "-container p" ).empty();
-					$( "." + divNum[topicsFound] + "-container").css("display", "block");
+					$( "." + divNum[topicsFound - 1] ).fadeTo(3, 1);
+					$( "." + divNum[topicsFound - 1] ).empty();
+					$( "." + divNum[topicsFound - 1] + "-container p" ).empty();
+					$( "." + divNum[topicsFound - 1] + "-container").css("display", "block");
 
 					num = ''
-					switch (divNum[topicsFound - 1]) {
-						case 'one' : num = 1; break;
-						case 'two' : num = 2; break;
-						case 'three' : num = 3; break;
-						case 'four' : num = 4; break;
-						case 'five' : num = 5; break;
-					}
+					num = topicsFound
 					console.log("TERM BEFORE TITLE: " + term)
 					var title = "<b>Topic " + num + ": <i>" + term + "</i></b>";
-					$( "." + divNum[topicsFound] + "-container p" ).append( title );
-
+					console.log("num " + divNum[topicsFound - 1])
+					$( "." + divNum[topicsFound - 1] + "-container p" ).append( title );
+					console.log(title)
 					console.log(data.hits)
 
 					$.each(data.hits, function(i, hit) {
@@ -114,17 +107,15 @@ function getImages( result ) {
 						}
 						
 						var newDiv = "<div class='o-item'><a href='" + hit.webformatURL +"' data-lightbox='" + term + "' data-title='<a href=\"" + hit.fullHDURL + "\" download>Click here</a> to download full-scale high-res image.'><img class='" + imgClass + "' src='" + hit.webformatURL + "'/></a></div>";
-						$( "." + divNum[topicsFound] ).append( newDiv );
+						$( "." + divNum[topicsFound - 1] ).append( newDiv );
 					});
 				}
 				else {
-					// TODO: case for no hits returned -> check out next topic(s)
 					console.log('No hits' + divNum[topicsFound] + " " + term);
 				}
 		}
 		
 	});
 	i++
-	// TODO: show more &page=2, &per_page=N
 	}
 }
